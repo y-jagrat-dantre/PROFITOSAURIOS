@@ -25,6 +25,8 @@ export default function Home({ onNavigate }) {
     for (let i = 1; i <= frameCount; i++) {
       const img = new Image();
       img.src = `${import.meta.env.BASE_URL}video-frames/frame_${i.toString().padStart(4, '0')}.jpg`;
+      // Force decoding off the main thread so it doesn't freeze scrolling!
+      img.decode().catch(() => {});
       imagesRef.current.push(img);
     }
 
@@ -121,7 +123,22 @@ export default function Home({ onNavigate }) {
 
         // Draw canvas frame instantly
         const frameIndex = Math.min(frameCount - 1, Math.floor(p * frameCount));
-        drawImage(imagesRef.current[frameIndex]);
+        let targetImg = imagesRef.current[frameIndex];
+        
+        // If the exact frame hasn't finished downloading yet (causes lag/freeze on GitHub pages)
+        // Find the absolute closest frame that IS loaded and use that instead!
+        if (!targetImg || !targetImg.complete) {
+          let offset = 1;
+          while (offset < 50) { // Search up to 50 frames away
+            let back = imagesRef.current[frameIndex - offset];
+            if (back && back.complete) { targetImg = back; break; }
+            let fwd = imagesRef.current[frameIndex + offset];
+            if (fwd && fwd.complete) { targetImg = fwd; break; }
+            offset++;
+          }
+        }
+        
+        if (targetImg) drawImage(targetImg);
       });
     };
 
