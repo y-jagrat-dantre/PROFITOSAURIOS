@@ -18,12 +18,12 @@ export function AppProvider({ children }) {
 
   const t = translations[settings.language] || translations.en;
 
-  // Fetch settings from Firebase once on mount
+  // Fetch data from Firebase once on mount
   useEffect(() => {
     const fetchFirebaseSettings = async () => {
       try {
-        const docRef = doc(db, "app_settings", "demo_user");
-        const docSnap = await getDoc(docRef);
+        // Fetch Settings
+        const docSnap = await getDoc(doc(db, "app_settings", "demo_user"));
         if (docSnap.exists()) {
           const data = docSnap.data();
           setSettings(prev => ({ 
@@ -32,10 +32,21 @@ export function AppProvider({ children }) {
             language: data.language || prev.language 
           }));
         }
+        
+        // Fetch App Data
+        const vegSnap = await getDoc(doc(db, "app_data", "vegetables"));
+        if (vegSnap.exists()) setVegetables(vegSnap.data().data || []);
+        
+        const salesSnap = await getDoc(doc(db, "app_data", "sales"));
+        if (salesSnap.exists()) setSales(salesSnap.data().data || []);
+        
+        const wastageSnap = await getDoc(doc(db, "app_data", "wastage"));
+        if (wastageSnap.exists()) setWastageRecords(wastageSnap.data().data || []);
+        
       } catch (e) {
         // Silently ignore offline errors since we fallback to local storage
         if (e.code !== 'unavailable') {
-          console.warn("Failed to load settings from Firebase:", e);
+          console.warn("Failed to load from Firebase:", e);
         }
       }
     };
@@ -43,9 +54,32 @@ export function AppProvider({ children }) {
   }, []);
 
   // Persist whenever data changes
-  useEffect(() => { storageService.saveVegetables(vegetables); }, [vegetables]);
-  useEffect(() => { storageService.saveSales(sales); }, [sales]);
-  useEffect(() => { storageService.saveWastage(wastageRecords); }, [wastageRecords]);
+  useEffect(() => { 
+    storageService.saveVegetables(vegetables); 
+    if (vegetables.length > 0) {
+      import('firebase/firestore').then(({ doc, setDoc }) => {
+        setDoc(doc(db, "app_data", "vegetables"), { data: vegetables }).catch(console.error);
+      });
+    }
+  }, [vegetables]);
+  
+  useEffect(() => { 
+    storageService.saveSales(sales); 
+    if (sales.length > 0) {
+      import('firebase/firestore').then(({ doc, setDoc }) => {
+        setDoc(doc(db, "app_data", "sales"), { data: sales }).catch(console.error);
+      });
+    }
+  }, [sales]);
+  
+  useEffect(() => { 
+    storageService.saveWastage(wastageRecords); 
+    if (wastageRecords.length > 0) {
+      import('firebase/firestore').then(({ doc, setDoc }) => {
+        setDoc(doc(db, "app_data", "wastage"), { data: wastageRecords }).catch(console.error);
+      });
+    }
+  }, [wastageRecords]);
   useEffect(() => { storageService.saveSettings(settings); }, [settings]);
 
   const updateSettings = useCallback((updates) => {
