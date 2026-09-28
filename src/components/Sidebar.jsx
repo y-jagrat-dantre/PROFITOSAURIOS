@@ -33,7 +33,7 @@ export default function Sidebar({ currentPage, onNavigate, isOpen, onToggle }) {
       {/* Desktop Top Navbar (Floating Pill) */}
       <nav className="top-navbar hide-on-mobile">
         <div className="flex-center" style={{ marginRight: 12, marginLeft: 8 }}>
-          <img src="/logo.png" alt="PROFITOSAURIOS Logo" style={{ width: 32, height: 32, objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }} />
+          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="PROFITOSAURIOS Logo" style={{ width: 32, height: 32, objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }} />
         </div>
         <div className="top-navbar-links" style={{ overflowX: 'auto', paddingBottom: 4, scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {ALL_NAV.map((id) => {
@@ -66,7 +66,7 @@ export default function Sidebar({ currentPage, onNavigate, isOpen, onToggle }) {
           {isOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
         <div className="flex-center gap-2">
-          <img src="/logo.png" alt="PROFITOSAURIOS Logo" style={{ width: 24, height: 24, objectFit: 'contain' }} />
+          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="PROFITOSAURIOS Logo" style={{ width: 24, height: 24, objectFit: 'contain' }} />
           <span style={{ fontWeight: 700, fontSize: 15 }}>{t.appName}</span>
         </div>
         <div style={{ width: 36 }} />

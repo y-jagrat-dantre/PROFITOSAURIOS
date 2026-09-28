@@ -244,7 +244,7 @@ export default function Dashboard({ onNavigate }) {
           <div className="card mt-6">
             <div className="card-body" style={{ textAlign: 'center', padding: '40px 20px' }}>
               <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'center' }}>
-                <img src="/logo.png" alt="PROFITOSAURIOS Logo" style={{ width: 64, height: 64, objectFit: 'contain' }} />
+                <img src={`${import.meta.env.BASE_URL}logo.png`} alt="PROFITOSAURIOS Logo" style={{ width: 64, height: 64, objectFit: 'contain' }} />
               </div>
               <div style={{ fontWeight: 700, fontSize: 18, marginBottom: 8 }}>{t.welcomeMsg || 'Welcome to PROFITOSAURIOS!'}</div>
               <div className="text-muted mb-4">{t.welcomeDesc || 'Start by adding your vegetables or loading demo data to see the full experience.'}</div>

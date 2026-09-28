@@ -293,7 +293,7 @@ export default function Home({ onNavigate }) {
               
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
                 <img 
-                  src="/logo.png" 
+                  src={`${import.meta.env.BASE_URL}logo.png`} 
                   alt="PROFITOSAURIOS Logo" 
                   style={{ 
                     width: '140px', 
