@@ -24,7 +24,7 @@ export default function Home({ onNavigate }) {
     // Preload images
     for (let i = 1; i <= frameCount; i++) {
       const img = new Image();
-      img.src = `/video-frames/frame_${i.toString().padStart(4, '0')}.jpg`;
+      img.src = `${import.meta.env.BASE_URL}video-frames/frame_${i.toString().padStart(4, '0')}.jpg`;
       imagesRef.current.push(img);
     }
 
