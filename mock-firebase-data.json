@@ -1,0 +1,87 @@
+{
+  "users": {
+    "vendor1": {
+      "name": "Jagrat Vendor",
+      "email": "vendor@profitosaurios.com",
+      "role": "vendor"
+    },
+    "wholesaler1": {
+      "name": "Ramesh Traders",
+      "email": "ramesh@profitosaurios.com",
+      "role": "wholesaler"
+    },
+    "wholesaler2": {
+      "name": "Fresh Farm Hub",
+      "email": "farmhub@profitosaurios.com",
+      "role": "wholesaler"
+    },
+    "wholesaler3": {
+      "name": "Kisan Wholesale",
+      "email": "kisan@profitosaurios.com",
+      "role": "wholesaler"
+    }
+  },
+  "products": {
+    "prod1": {
+      "name": "Tomato",
+      "category": "Vegetable",
+      "perishability": "High"
+    },
+    "prod2": {
+      "name": "Potato",
+      "category": "Vegetable",
+      "perishability": "Low"
+    },
+    "prod3": {
+      "name": "Onion",
+      "category": "Vegetable",
+      "perishability": "Low"
+    }
+  },
+  "wholesalerListings": {
+    "list1": {
+      "wholesalerID": "wholesaler1",
+      "productID": "prod1",
+      "price": 40,
+      "availableQuantity": 100,
+      "minimumOrder": 10
+    },
+    "list2": {
+      "wholesalerID": "wholesaler2",
+      "productID": "prod1",
+      "price": 37,
+      "availableQuantity": 20,
+      "minimumOrder": 5
+    },
+    "list3": {
+      "wholesalerID": "wholesaler3",
+      "productID": "prod1",
+      "price": 39,
+      "availableQuantity": 50,
+      "minimumOrder": 15
+    }
+  },
+  "optimizations": {
+    "opt1": {
+      "vendorID": "vendor1",
+      "productID": "prod1",
+      "demand": 45,
+      "currentStock": 10,
+      "costPrice": 40,
+      "sellingPrice": 60,
+      "budget": 5000,
+      "weather": "Normal",
+      "recommendedQuantity": 35,
+      "estimatedProfit": 700
+    }
+  },
+  "requests": {
+    "req1": {
+      "vendorID": "vendor1",
+      "wholesalerID": "wholesaler3",
+      "productID": "prod1",
+      "quantity": 35,
+      "status": "pending"
+    }
+  }
+}
